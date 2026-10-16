@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getSessionUser } from "@/lib/auth";
 import { signOut } from "@/app/actions";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/fraunces";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -10,10 +12,10 @@ export const metadata: Metadata = {
     "Finn kvalifiserte styrekandidater i Nord-Norge, eller registrer deg som kandidat.",
 };
 
-function Logo() {
+function Logo({ light = false }: { light?: boolean }) {
   return (
-    <Link href="/" className="text-xl font-bold tracking-tight text-fjord-900">
-      Styri<span className="text-fjord-600">nord</span>
+    <Link href="/" className={`font-serif text-2xl font-semibold tracking-tight ${light ? "text-white" : "text-fjord-900"}`}>
+      Styri<span className={light ? "text-aurora" : "text-fjord-600"}>nord</span>
     </Link>
   );
 }
@@ -26,35 +28,35 @@ export default async function RootLayout({
   return (
     <html lang="nb">
       <body className="flex min-h-screen flex-col antialiased">
-        <header className="bg-white">
+        <header className="relative z-10 bg-night text-white">
           <nav className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-5 sm:px-6">
-            <Logo />
+            <Logo light />
             <div className="flex flex-wrap items-center gap-2 text-sm font-medium sm:gap-5">
               {session ? (
                 <>
                   {(session.role === "company" || session.role === "admin") && (
-                    <Link href="/kandidater" className="px-2 py-1 hover:text-fjord-600">
+                    <Link href="/kandidater" className="px-2 py-1 hover:text-aurora">
                       Finn kandidater
                     </Link>
                   )}
                   {session.role === "admin" && (
-                    <Link href="/admin" className="px-2 py-1 hover:text-fjord-600">
+                    <Link href="/admin" className="px-2 py-1 text-white/85 hover:text-aurora">
                       Admin
                     </Link>
                   )}
-                  <Link href="/min-side" className="px-2 py-1 hover:text-fjord-600">
+                  <Link href="/min-side" className="px-2 py-1 text-white/85 hover:text-aurora">
                     Min side
                   </Link>
                   <form action={signOut}>
-                    <button className="btn-secondary">Logg ut</button>
+                    <button className="rounded-lg border border-white/30 px-4 py-2 text-white hover:bg-white/10">Logg ut</button>
                   </form>
                 </>
               ) : (
                 <>
-                  <Link href="/logg-inn" className="px-2 py-1 hover:text-fjord-600">
+                  <Link href="/logg-inn" className="px-2 py-1 text-white/85 hover:text-aurora">
                     Logg inn
                   </Link>
-                  <Link href="/registrer" className="btn">
+                  <Link href="/registrer" className="rounded-lg bg-white px-4 py-2 font-semibold text-night hover:bg-sand">
                     Registrer deg
                   </Link>
                 </>
@@ -62,8 +64,8 @@ export default async function RootLayout({
             </div>
           </nav>
         </header>
-        <main className="flex-1">{children}</main>
-        <footer className="border-t border-slate-200 bg-fjord-50 text-sm text-slate-600">
+        <main className="flex flex-1 flex-col">{children}</main>
+        <footer className="border-t border-sand-dark bg-sand text-sm text-slate-600">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-8 sm:px-6">
             <div>
               <Logo />

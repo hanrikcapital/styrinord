@@ -21,7 +21,6 @@ export function AuthForm({
 
   return (
     <form action={formAction} className="space-y-4">
-      {children}
       <div>
         <label className="label" htmlFor="email">E-post</label>
         <input className="input" id="email" name="email" type="email" required autoComplete="email" />
@@ -38,6 +37,7 @@ export function AuthForm({
           autoComplete="current-password"
         />
       </div>
+      {children}
       {state?.error && <p className="text-sm text-red-700">{state.error}</p>}
       <button className="btn w-full" disabled={pending}>
         {pending ? "Vent litt…" : submitLabel}

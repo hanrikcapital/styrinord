@@ -1,22 +1,32 @@
 @import "tailwindcss";
 
-/* Lys nordisk: blekk, isblått og fjordgrønt */
+/* Nordlys: nattblå, nordlysgrønt og sand, med serif-titler */
 @theme {
-  --color-fjord-50: #f2f7f8;
-  --color-fjord-100: #dcebef;
-  --color-fjord-200: #cfe3ea;
-  --color-fjord-400: #8fb3c0;
-  --color-fjord-500: #5f8c9c;
-  --color-fjord-600: #1f7a8c;
-  --color-fjord-700: #17606e;
+  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Fraunces Variable", Georgia, serif;
+
+  --color-night: #07131f;
+  --color-fjord-50: #f2f7f6;
+  --color-fjord-100: #dcefe9;
+  --color-fjord-600: #17876b;
+  --color-fjord-700: #116a54;
   --color-fjord-900: #0f2230;
-  --color-aurora: #1f7a8c;
+  --color-aurora: #2bd39a;
+  --color-sand: #f7f4ee;
+  --color-sand-dark: #e6dfd2;
 }
 
 body {
   background: #ffffff;
   color: #0f2230;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
 }
 
 @layer components {
@@ -29,13 +39,16 @@ body {
   .btn {
     @apply inline-flex items-center justify-center rounded-lg bg-fjord-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-fjord-700 disabled:opacity-50;
   }
+  .btn-aurora {
+    @apply inline-flex items-center justify-center rounded-lg bg-aurora px-5 py-3 text-sm font-semibold text-night transition hover:bg-emerald-300;
+  }
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-fjord-900 transition hover:bg-fjord-50;
+    @apply inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-fjord-900 transition hover:bg-sand;
   }
   .card {
-    @apply rounded-2xl border border-slate-200 bg-white p-6 sm:p-8;
+    @apply rounded-2xl border border-sand-dark bg-white p-6 shadow-[0_20px_50px_-20px_rgba(15,34,48,0.15)] sm:p-8;
   }
   .chip {
-    @apply inline-block rounded-full bg-fjord-50 px-2.5 py-0.5 text-xs font-medium text-fjord-700;
+    @apply inline-block rounded-full bg-sand px-2.5 py-0.5 text-xs font-medium text-fjord-900;
   }
 }
