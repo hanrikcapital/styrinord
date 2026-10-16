@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Styrinord
 
-## Getting Started
+Nettside der nordnorske bedrifter finner styrekandidater, og kandidater registrerer seg selv.
 
-First, run the development server:
+Bygget med Next.js, Supabase (database og innlogging) og Vercel (drift).
+
+## Hva som finnes
+
+- **Kandidater** oppretter bruker, fyller ut profil (alder, kjønn, region, bransje, kompetanse, styreerfaring, styreutdanning) og velger om profilen er synlig.
+- **Bedrifter** oppretter bruker og registrerer bedriften med organisasjonsnummer. De ser ingen kandidater før en administrator har godkjent dem.
+- **Godkjente bedrifter** søker og filtrerer kandidater og sender henvendelser. Kandidaten ser henvendelsen på «Min side» og svarer på e-post.
+- **Administrator** godkjenner eller avviser bedrifter på `/admin`.
+- Bedrifter ser aldri fødselsdato, telefon eller e-post til kandidater. Dette håndheves i databasen (se `supabase/migrations`).
+
+## Oppsett
+
+1. **Supabase**: opprett et prosjekt (velg region i EU, f.eks. Stockholm). Gå til *SQL Editor*, lim inn innholdet i `supabase/migrations/0001_init.sql` og trykk *Run*.
+2. Under *Authentication → URL Configuration* settes *Site URL* til adressen siden skal ha (f.eks. `https://styrinord.no`).
+3. **Vercel**: importer dette repositoriet og legg inn miljøvariablene fra `.env.example`. Verdiene for Supabase finnes under *Project Settings → API*.
+4. Registrer deg på siden, og gjør deg selv til administrator i Supabase *SQL Editor*:
+   ```sql
+   update public.profiles set role = 'admin'
+   where id = (select id from auth.users where email = 'din@epost.no');
+   ```
+
+## Lokal utvikling
 
 ```bash
+cp .env.example .env.local   # fyll inn verdiene
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Planlagt
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Innlogging og identitetsbekreftelse med Vipps eller BankID
+- E-postvarsel til kandidaten ved ny henvendelse
+- Opplasting av CV og bilde
