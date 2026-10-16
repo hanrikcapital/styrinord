@@ -1,11 +1,17 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import type { FormState } from "@/components/AuthForm";
 
-function siteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+// Adressen brukeren faktisk er på, så bekreftelseslenken virker uten ekstra oppsett.
+async function siteUrl() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  const h = await headers();
+  const host = h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000";
+  const proto = h.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
+  return `${proto}://${host}`;
 }
 
 async function signUp(role: "candidate" | "company", formData: FormData): Promise<FormState> {
@@ -20,7 +26,7 @@ async function signUp(role: "candidate" | "company", formData: FormData): Promis
     password,
     options: {
       data: { role },
-      emailRedirectTo: `${siteUrl()}/auth/callback?next=/min-side`,
+      emailRedirectTo: `${await siteUrl()}/auth/callback?next=/min-side`,
     },
   });
   if (error) return { error: "Kunne ikke opprette bruker: " + error.message };
