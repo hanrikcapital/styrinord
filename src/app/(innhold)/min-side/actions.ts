@@ -75,3 +75,16 @@ export async function deleteMyProfile() {
   revalidatePath("/min-side");
   redirect("/min-side");
 }
+
+export async function respondToRequest(f: FormData) {
+  const { supabase, user, role } = await requireUser();
+  if (role !== "candidate") return;
+  const status = String(f.get("status"));
+  if (status !== "approved" && status !== "declined") return;
+  await supabase
+    .from("contact_requests")
+    .update({ status })
+    .eq("id", String(f.get("id")))
+    .eq("candidate_id", user.id);
+  revalidatePath("/min-side");
+}

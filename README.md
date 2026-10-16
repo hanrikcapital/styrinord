@@ -8,13 +8,13 @@ Bygget med Next.js, Supabase (database og innlogging) og Vercel (drift).
 
 - **Kandidater** oppretter bruker, fyller ut profil (alder, kjønn, region, bransje, kompetanse, styreerfaring, styreutdanning) og velger om profilen er synlig.
 - **Bedrifter** oppretter bruker og registrerer bedriften med organisasjonsnummer. De ser ingen kandidater før en administrator har godkjent dem.
-- **Godkjente bedrifter** søker og filtrerer kandidater og sender henvendelser. Kandidaten ser henvendelsen på «Min side» og svarer på e-post.
+- **Godkjente bedrifter** søker og filtrerer kandidater og ber om kontaktinformasjon. Kandidaten godkjenner eller avslår på «Min side», og først etter godkjenning ser bedriften e-post og telefon.
 - **Administrator** godkjenner eller avviser bedrifter på `/admin`.
 - Bedrifter ser aldri fødselsdato, telefon eller e-post til kandidater. Dette håndheves i databasen (se `supabase/migrations`).
 
 ## Oppsett
 
-1. **Supabase**: opprett et prosjekt (velg region i EU, f.eks. Stockholm). Gå til *SQL Editor*, lim inn innholdet i `supabase/migrations/0001_init.sql` og trykk *Run*.
+1. **Supabase**: opprett et prosjekt (velg region i EU, f.eks. Stockholm). Gå til *SQL Editor* og kjør filene i `supabase/migrations` én gang hver, i nummerrekkefølge.
 2. Under *Authentication → URL Configuration* settes *Site URL* til adressen siden skal ha (f.eks. `https://styrinord.no`).
 3. **Vercel**: importer dette repositoriet og legg inn miljøvariablene fra `.env.example`. Verdiene for Supabase finnes under *Project Settings → API*.
 4. Registrer deg på siden, og gjør deg selv til administrator i Supabase *SQL Editor*:

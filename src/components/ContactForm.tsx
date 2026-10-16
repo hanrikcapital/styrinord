@@ -25,7 +25,7 @@ export function ContactForm({
         placeholder="Fortell kort om bedriften og hvilket verv det gjelder."
       />
       {state?.error && <p className="text-sm text-red-700">{state.error}</p>}
-      <button className="btn" disabled={pending}>{pending ? "Sender…" : "Send henvendelse"}</button>
+      <button className="btn" disabled={pending}>{pending ? "Sender…" : "Be om kontaktinformasjon"}</button>
     </form>
   );
 }
