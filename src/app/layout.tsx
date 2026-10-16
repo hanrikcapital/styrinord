@@ -10,6 +10,14 @@ export const metadata: Metadata = {
     "Finn kvalifiserte styrekandidater i Nord-Norge, eller registrer deg som kandidat.",
 };
 
+function Logo() {
+  return (
+    <Link href="/" className="text-xl font-bold tracking-tight text-fjord-900">
+      Styri<span className="text-fjord-600">nord</span>
+    </Link>
+  );
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -18,25 +26,23 @@ export default async function RootLayout({
   return (
     <html lang="nb">
       <body className="flex min-h-screen flex-col antialiased">
-        <header className="border-b border-slate-200 bg-white">
-          <nav className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-4">
-            <Link href="/" className="text-xl font-bold text-fjord-900">
-              Styri<span className="text-aurora">nord</span>
-            </Link>
-            <div className="flex flex-wrap items-center gap-4 text-sm">
+        <header className="bg-white">
+          <nav className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-5 sm:px-6">
+            <Logo />
+            <div className="flex flex-wrap items-center gap-2 text-sm font-medium sm:gap-5">
               {session ? (
                 <>
                   {(session.role === "company" || session.role === "admin") && (
-                    <Link href="/kandidater" className="hover:text-fjord-600">
+                    <Link href="/kandidater" className="px-2 py-1 hover:text-fjord-600">
                       Finn kandidater
                     </Link>
                   )}
                   {session.role === "admin" && (
-                    <Link href="/admin" className="hover:text-fjord-600">
+                    <Link href="/admin" className="px-2 py-1 hover:text-fjord-600">
                       Admin
                     </Link>
                   )}
-                  <Link href="/min-side" className="hover:text-fjord-600">
+                  <Link href="/min-side" className="px-2 py-1 hover:text-fjord-600">
                     Min side
                   </Link>
                   <form action={signOut}>
@@ -45,7 +51,7 @@ export default async function RootLayout({
                 </>
               ) : (
                 <>
-                  <Link href="/logg-inn" className="hover:text-fjord-600">
+                  <Link href="/logg-inn" className="px-2 py-1 hover:text-fjord-600">
                     Logg inn
                   </Link>
                   <Link href="/registrer" className="btn">
@@ -56,13 +62,17 @@ export default async function RootLayout({
             </div>
           </nav>
         </header>
-        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10">{children}</main>
+        <main className="flex-1">{children}</main>
         <footer className="border-t border-slate-200 bg-fjord-50 text-sm text-slate-600">
-          <div className="mx-auto flex max-w-5xl flex-wrap justify-between gap-2 px-4 py-6">
-            <span>© {new Date().getFullYear()} Styrinord</span>
-            <Link href="/personvern" className="hover:text-fjord-600">
-              Personvern
-            </Link>
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-8 sm:px-6">
+            <div>
+              <Logo />
+              <p className="mt-1">Styrekandidater for Nordland, Troms og Finnmark.</p>
+            </div>
+            <div className="flex gap-5">
+              <Link href="/personvern" className="hover:text-fjord-600">Personvern</Link>
+              <span>© {new Date().getFullYear()} Styrinord</span>
+            </div>
           </div>
         </footer>
       </body>

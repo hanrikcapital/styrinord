@@ -1,35 +1,39 @@
 @import "tailwindcss";
 
+/* Lys nordisk: blekk, isblått og fjordgrønt */
 @theme {
-  --color-fjord-50: #f1f6f9;
-  --color-fjord-100: #dce9f0;
-  --color-fjord-600: #1f5f7f;
-  --color-fjord-700: #184b65;
-  --color-fjord-900: #0d2a3a;
-  --color-aurora: #2bb38a;
+  --color-fjord-50: #f2f7f8;
+  --color-fjord-100: #dcebef;
+  --color-fjord-200: #cfe3ea;
+  --color-fjord-400: #8fb3c0;
+  --color-fjord-500: #5f8c9c;
+  --color-fjord-600: #1f7a8c;
+  --color-fjord-700: #17606e;
+  --color-fjord-900: #0f2230;
+  --color-aurora: #1f7a8c;
 }
 
 body {
   background: #ffffff;
-  color: #1a2530;
+  color: #0f2230;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 @layer components {
   .input {
-    @apply w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-fjord-600 focus:outline-none focus:ring-2 focus:ring-fjord-100;
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-fjord-600 focus:outline-none focus:ring-2 focus:ring-fjord-100;
   }
   .label {
     @apply mb-1 block text-sm font-medium text-slate-700;
   }
   .btn {
-    @apply inline-flex items-center justify-center rounded-md bg-fjord-600 px-4 py-2 text-sm font-semibold text-white hover:bg-fjord-700 disabled:opacity-50;
+    @apply inline-flex items-center justify-center rounded-lg bg-fjord-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-fjord-700 disabled:opacity-50;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50;
+    @apply inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-fjord-900 transition hover:bg-fjord-50;
   }
   .card {
-    @apply rounded-lg border border-slate-200 bg-white p-6 shadow-sm;
+    @apply rounded-2xl border border-slate-200 bg-white p-6 sm:p-8;
   }
   .chip {
     @apply inline-block rounded-full bg-fjord-50 px-2.5 py-0.5 text-xs font-medium text-fjord-700;
